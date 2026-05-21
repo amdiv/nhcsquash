@@ -395,6 +395,29 @@
   }
   .carousel-slide.active { opacity: 1; }
 
+  /* Real image fills the slide */
+  .carousel-slide img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel-caption {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(248,246,241,0.5);
+    z-index: 2;
+  }
+
   .carousel-slide-icon {
     width: 64px;
     height: 64px;
@@ -679,6 +702,17 @@
     align-items: start;
   }
 
+  .about-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  /* About section image card */
   .about-image-placeholder {
     aspect-ratio: 3/4;
     background: #151515;
@@ -1037,51 +1071,25 @@
 <section class="courts-section" id="courts">
   <div class="courts-inner">
 
-    <!-- Image Carousel Placeholder -->
+    <!-- Image Carousel — court photos -->
     <div class="carousel-placeholder">
       <div class="carousel-badge">6 Courts Available</div>
       <div class="carousel-inner" id="carousel">
         <div class="carousel-slide active">
-          <div class="carousel-slide-num">1 / 4</div>
-          <div class="carousel-slide-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C8F000" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="1"/>
-              <line x1="3" y1="12" x2="21" y2="12"/>
-              <line x1="12" y1="12" x2="12" y2="21"/>
-            </svg>
-          </div>
-          <div class="carousel-slide-label">Court View</div>
+          <img src="images/court1.jpg" alt="NHC Court 1" loading="eager">
+          <div class="carousel-caption">Court 1</div>
         </div>
         <div class="carousel-slide">
-          <div class="carousel-slide-num">2 / 4</div>
-          <div class="carousel-slide-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C8F000" stroke-width="1.5">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M12 3v9l6 3"/>
-            </svg>
-          </div>
-          <div class="carousel-slide-label">Reception Area</div>
+          <img src="images/court2.jpg" alt="NHC Court 2" loading="lazy">
+          <div class="carousel-caption">Court 2</div>
         </div>
         <div class="carousel-slide">
-          <div class="carousel-slide-num">3 / 4</div>
-          <div class="carousel-slide-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C8F000" stroke-width="1.5">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <div class="carousel-slide-label">Competition Night</div>
+          <img src="images/court3.jpg" alt="NHC Court 3" loading="lazy">
+          <div class="carousel-caption">Court 3</div>
         </div>
         <div class="carousel-slide">
-          <div class="carousel-slide-num">4 / 4</div>
-          <div class="carousel-slide-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C8F000" stroke-width="1.5">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-            </svg>
-          </div>
-          <div class="carousel-slide-label">Training Sessions</div>
+          <img src="images/court4.jpg" alt="NHC Court 4" loading="lazy">
+          <div class="carousel-caption">Court 4</div>
         </div>
       </div>
 
@@ -1240,11 +1248,7 @@
   <div class="about-inner">
     <div class="about-image-placeholder">
       <div class="about-rank-badge">PSA #251 World Ranked</div>
-      <div class="about-image-icon">
-        <svg width="120" height="120" viewBox="0 0 24 24" fill="white">
-          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-        </svg>
-      </div>
+      <img src="images/james-ethan.png" alt="James Ethan — Owner & Head Coach, NHC Squash" class="about-photo">
       <div class="about-image-name">James<br>Ethan</div>
       <div class="about-image-title">Owner & Head Coach</div>
     </div>
@@ -1331,9 +1335,10 @@
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links">
           <li><a href="tel:0419688262">041 968 8262</a></li>
+          <li><a href="mailto:James@nhsf.com.au">James@nhsf.com.au</a></li>
           <li><a href="tel:0419688262">Book a Court</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
+          <li><a href="https://www.instagram.com/nhc_squash/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/people/Nhc/61581439148767/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
         </ul>
       </div>
     </div>
