@@ -559,7 +559,7 @@
 
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -959,7 +959,9 @@
     section { padding: 4rem 1.25rem; }
 
     .courts-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .pricing-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid .price-card:first-child,
+    .pricing-grid .price-card:last-child { grid-column: span 1; }
     .schedule-grid { grid-template-columns: repeat(4, 1fr); }
     .about-inner { grid-template-columns: 1fr; gap: 3rem; }
     .about-image-placeholder { aspect-ratio: 3/2; }
@@ -977,6 +979,7 @@
   @media (max-width: 600px) {
     .schedule-grid { grid-template-columns: repeat(2, 1fr); }
     .about-milestones { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1150,15 +1153,28 @@
       </div>
       <div class="price-card featured">
         <div class="price-card-label">Best Value</div>
-        <div class="price-card-name">Visit<br>Pass</div>
-        <div class="price-amount">$165</div>
-        <div class="price-per">5-visit pack · 3 months validity</div>
+        <div class="price-card-name">5 Visit<br>Pack</div>
+        <div class="price-amount">$175</div>
+        <div class="price-per">90 min per visit · 3 months validity</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>90 minutes per visit</li>
+          <li>3 months validity</li>
+          <li>Flexible booking</li>
+          <li>Save $15</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="price-card-label">Best Deal</div>
+        <div class="price-card-name">10 Visit<br>Pack</div>
+        <div class="price-amount">$330</div>
+        <div class="price-per">60 min per visit · 6 months validity</div>
         <div class="price-divider"></div>
         <ul class="price-features">
           <li>1 hour per visit</li>
-          <li>10-visit pack at $330 (6 months)</li>
-          <li>90-min 5-pack at $200</li>
+          <li>6 months validity</li>
           <li>Flexible booking</li>
+          <li>Save $50</li>
         </ul>
       </div>
       <div class="price-card">
