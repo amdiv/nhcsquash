@@ -981,6 +981,79 @@
     .about-milestones { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── GALLERY ── */
+  .gallery-section { background: var(--black); }
+  .gallery-inner { max-width: 1200px; margin: 0 auto; }
+
+  .gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .gallery-header p {
+    color: rgba(248,246,241,0.5);
+    font-size: 0.95rem;
+    max-width: 320px;
+    line-height: 1.6;
+  }
+
+  .flickr-wrap {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #111;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flickr-wrap a[data-flickr-embed] {
+    display: block;
+    width: 100%;
+  }
+
+  .flickr-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Flickr embed overrides — make it fill the container cleanly */
+  .flickr-embed-frame {
+    width: 100% !important;
+    min-height: 480px;
+    border: none !important;
+    display: block;
+  }
+
+  .gallery-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .gallery-link:hover { opacity: 0.7; }
+  .gallery-link::after { content: '→'; }
+
+  @media (max-width: 900px) {
+    .flickr-wrap { min-height: 320px; }
+    .flickr-embed-frame { min-height: 320px; }
+    .gallery-header { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
 <body>
@@ -997,6 +1070,7 @@
     <li><a href="#courts">Courts</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#competitions">Competitions</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -1111,6 +1185,8 @@
           <button class="carousel-dot" data-index="1"></button>
           <button class="carousel-dot" data-index="2"></button>
           <button class="carousel-dot" data-index="3"></button>
+          <button class="carousel-dot" data-index="4"></button>
+          <button class="carousel-dot" data-index="5"></button>
         </div>
         <button class="carousel-btn" id="carousel-next" aria-label="Next">›</button>
       </div>
@@ -1262,8 +1338,45 @@
           <span class="time-tag grade-b">2pm · B</span>
           <span class="time-tag grade-a">3pm · A</span>
         </div>
+        <div style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;line-height:1.2;margin-bottom:0.3rem;">Ladies Novice</div>
+          <span class="time-tag grade-b">2:30–4pm</span>
+          <div style="font-size:0.65rem;color:rgba(248,246,241,0.35);margin-top:0.3rem;letter-spacing:0.05em;">FORTNIGHTLY</div>
+        </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <div>
+        <div class="section-label">Gallery</div>
+        <h2 class="section-title">Life at<br>NHC</h2>
+      </div>
+      <p>Competition nights, winners, and moments from the courts. Updated after every event.</p>
+    </div>
+    <div class="flickr-wrap">
+      <iframe
+        src="https://www.flickr.com/photos/204688159@N06/albums/72177720334126256/player/?autoplay=1"
+        width="100%"
+        height="500"
+        frameborder="0"
+        allowfullscreen
+        webkitallowfullscreen
+        mozallowfullscreen
+        oallowfullscreen
+        msallowfullscreen
+        title="NHC Squash Gallery"
+        class="flickr-embed-frame">
+      </iframe>
+    </div>
+    <a href="https://www.flickr.com/photos/204688159@N06/albums/72177720334126256"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="gallery-link">View full gallery on Flickr</a>
   </div>
 </section>
 
@@ -1382,10 +1495,10 @@
 
   function goTo(index) {
     slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
-    dots[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
   }
 
   function startAuto() {
