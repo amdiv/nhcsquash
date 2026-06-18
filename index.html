@@ -33,24 +33,117 @@
     overflow-x: hidden;
   }
 
-  /* ── OFFER BANNER ── */
-  .offer-banner {
-    background: #151f05;
-    border-bottom: 1px solid rgba(200,240,0,0.2);
-    text-align: center;
-    padding: 0.6rem 2rem;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.04em;
+  /* ── PROMO BANNER ──
+     To disable: add  display:none  to #promo-banner, or remove the block entirely.
+     To re-enable for a new offer: restore the block and update the copy inside. */
+  #promo-banner {
+    background: var(--accent);
+    padding: 0.75rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 99;
   }
-  .offer-banner strong { font-weight: 700; }
+  .promo-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .promo-badge {
+    background: var(--black);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    line-height: 1.5;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .promo-divider {
+    width: 1px;
+    height: 2rem;
+    background: rgba(10,10,10,0.15);
+    flex-shrink: 0;
+  }
+  .promo-body { min-width: 0; }
+  .promo-choose {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-bottom: 0.3rem;
+  }
+  .promo-offers {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .promo-offer {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--black);
+    white-space: nowrap;
+  }
+  .promo-or {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(10,10,10,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .promo-sub {
+    font-size: 0.72rem;
+    color: rgba(10,10,10,0.55);
+    margin-top: 0.25rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .promo-cta {
+    background: var(--black);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.2rem;
+    border-radius: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .promo-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  @media (max-width: 900px) {
+    #promo-banner { padding: 0.75rem 1.25rem; gap: 0.75rem; flex-wrap: wrap; }
+    .promo-divider { display: none; }
+    .promo-badge { font-size: 0.6rem; }
+    .promo-offer { font-size: 0.8rem; }
+    .promo-cta { width: 100%; text-align: center; }
+  }
+
+  /* ── STICKY HEADER WRAPPER ── */
+  #site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
   /* ── NAV ── */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -132,7 +225,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 100px 3rem 4rem;
+    padding: 5rem 3rem 4rem;
     gap: 3rem;
     overflow: hidden;
   }
@@ -944,7 +1037,7 @@
 
     .hero {
       grid-template-columns: 1fr;
-      padding: 90px 1.25rem 3rem;
+      padding: 3rem 1.25rem 3rem;
       min-height: auto;
       gap: 2.5rem;
     }
@@ -1058,27 +1151,47 @@
 </head>
 <body>
 
-<!-- Offer Banner -->
-<div class="offer-banner">
-  <strong>First time?</strong> Your first 30 minutes are on us — walk in and ask at reception.
-</div>
+<!-- Sticky header: nav + promo banner travel together -->
+<div id="site-header">
 
-<!-- Nav -->
-<nav>
-  <a href="#home" class="nav-logo">NHC<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="#courts">Courts</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#competitions">Competitions</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="tel:0419688262" class="nav-cta">Book a Court</a>
-  <button class="nav-hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+  <!-- Nav -->
+  <nav>
+    <a href="#home" class="nav-logo">NHC<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#courts">Courts</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#competitions">Competitions</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="tel:0419688262" class="nav-cta">Book a Court</a>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Promo Banner — Anniversary Offer
+       To disable when offer ends: add style="display:none" to the div below, or delete this block.
+       To run a new offer: update the copy inside .promo-badge, .promo-offer spans, and .promo-sub. -->
+  <div id="promo-banner">
+    <div class="promo-left">
+      <div class="promo-badge">🎉 1st Year<br>Anniversary<br>This August</div>
+      <div class="promo-divider"></div>
+      <div class="promo-body">
+        <div class="promo-choose">Choose between</div>
+        <div class="promo-offers">
+          <span class="promo-offer">20% off 5 or 10 Visit Pack</span>
+          <span class="promo-or">— or —</span>
+          <span class="promo-offer">Free lesson <span style="font-weight:400;color:rgba(10,10,10,0.6)">or</span> 2 bonus visits with 10-Pack</span>
+        </div>
+        <div class="promo-sub">August promo only &middot; Mention this offer when you call</div>
+      </div>
+    </div>
+    <a href="tel:0419688262" class="promo-cta">Call James →</a>
+  </div>
+
+</div><!-- /site-header -->
 
 <!-- Hero -->
 <section class="hero" id="home">
@@ -1522,7 +1635,7 @@
     const open = navLinks.style.display === 'flex';
     navLinks.style.cssText = open
       ? ''
-      : 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(10,10,10,0.98);padding:1.5rem 1.25rem;gap:1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);z-index:99;';
+      : 'display:flex;flex-direction:column;position:sticky;top:68px;left:0;right:0;background:rgba(10,10,10,0.98);padding:1.5rem 1.25rem;gap:1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);z-index:99;';
   });
 </script>
 
