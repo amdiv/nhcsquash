@@ -346,11 +346,15 @@
     box-shadow: 0 0 60px rgba(200,240,0,0.06);
   }
 
-  /* 16:9 responsive ratio */
+  /* 9:16 portrait ratio — constrained width so it sits neatly in the hero column */
+  .hero-video-frame {
+    max-width: 340px;
+    margin: 0 auto;
+  }
   .hero-video-frame::before {
     content: '';
     display: block;
-    padding-bottom: 56.25%;
+    padding-bottom: 177.78%;
   }
 
   .hero-video-frame iframe {
@@ -1227,14 +1231,14 @@
   <div class="hero-video-wrap">
     <div class="hero-video-frame">
       <iframe
-        src="https://player.vimeo.com/video/1187956429?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+        src="https://player.vimeo.com/video/1205368264?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1"
         frameborder="0"
         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
-        title="NHC Squash — Welcome to Northmead">
+        title="NHC For Kids">
       </iframe>
     </div>
-    <div class="hero-video-label">NHC Northmead — Newly Renovated Courts</div>
+    <div class="hero-video-label">NHC Northmead — For Kids & Beginners</div>
   </div>
 </section>
 
@@ -1600,6 +1604,7 @@
   </div>
 </footer>
 
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
   /* ── Carousel ── */
   const slides = document.querySelectorAll('.carousel-slide');
