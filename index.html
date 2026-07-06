@@ -1080,6 +1080,218 @@
     .pricing-grid { grid-template-columns: 1fr; }
   }
 
+  /* ── VIDEOS ── */
+  /* ── VIDEOS ── */
+  .videos-section { background: var(--black); }
+  .videos-inner { max-width: 1200px; margin: 0 auto; }
+
+  .videos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .videos-header p {
+    color: rgba(248,246,241,0.5);
+    font-size: 0.95rem;
+    max-width: 340px;
+    line-height: 1.6;
+  }
+
+  /* Main player */
+  .vc-main-player {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 60px rgba(200,240,0,0.06);
+  }
+  .vc-main-player::before {
+    content: '';
+    display: block;
+    padding-bottom: 56.25%;
+  }
+  .vc-main-player iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* Loading / error state */
+  .vc-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: rgba(248,246,241,0.4);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .vc-spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba(200,240,0,0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: vc-spin 0.8s linear infinite;
+  }
+  @keyframes vc-spin { to { transform: rotate(360deg); } }
+
+  /* Now-playing label */
+  .vc-now-playing {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+    margin-bottom: 1.5rem;
+    min-height: 1.4rem;
+  }
+  .vc-now-playing-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    animation: vc-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes vc-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.75); }
+  }
+  .vc-now-playing-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Thumbnail strip */
+  .vc-thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .vc-thumb {
+    cursor: pointer;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #111;
+    transition: border-color 0.2s, transform 0.15s;
+    position: relative;
+  }
+  .vc-thumb:hover { border-color: rgba(200,240,0,0.4); transform: translateY(-2px); }
+  .vc-thumb.active { border-color: var(--accent); }
+
+  .vc-thumb-img-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #000;
+  }
+  .vc-thumb-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s;
+  }
+  .vc-thumb:hover .vc-thumb-img-wrap img { opacity: 0.8; }
+
+  /* Play icon overlay */
+  .vc-thumb-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .vc-thumb:hover .vc-thumb-play { opacity: 1; }
+  .vc-thumb.active .vc-thumb-play { opacity: 1; }
+  .vc-thumb-play svg {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+  }
+
+  /* Active indicator bar */
+  .vc-thumb.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .vc-thumb-meta {
+    padding: 0.6rem 0.75rem 0.7rem;
+  }
+  .vc-thumb-title {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .vc-thumb.active .vc-thumb-title { color: var(--accent); }
+  .vc-thumb-duration {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+    letter-spacing: 0.04em;
+  }
+
+  .videos-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .videos-link:hover { opacity: 0.7; }
+  .videos-link::after { content: '\2192'; }
+
+  @media (max-width: 900px) {
+    .videos-header { flex-direction: column; align-items: flex-start; }
+    .vc-thumbs { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+  }
+  @media (max-width: 600px) {
+    .vc-thumbs { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* ── GALLERY ── */
   .gallery-section { background: var(--black); }
   .gallery-inner { max-width: 1200px; margin: 0 auto; }
@@ -1123,13 +1335,6 @@
     display: block;
   }
 
-  /* Flickr embed overrides — make it fill the container cleanly */
-  .flickr-embed-frame {
-    width: 100% !important;
-    min-height: 480px;
-    border: none !important;
-    display: block;
-  }
 
   .gallery-link {
     display: inline-flex;
@@ -1149,7 +1354,6 @@
 
   @media (max-width: 900px) {
     .flickr-wrap { min-height: 320px; }
-    .flickr-embed-frame { min-height: 320px; }
     .gallery-header { flex-direction: column; align-items: flex-start; }
   }
 </style>
@@ -1166,6 +1370,7 @@
       <li><a href="#courts">Courts</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#competitions">Competitions</a></li>
+      <li><a href="#videos">Videos</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1223,6 +1428,7 @@
     </p>
     <div class="hero-actions">
       <a href="tel:0419688262" class="btn-primary">Book a Court</a>
+      <a href="#videos" class="btn-ghost">Watch Videos</a>
       <a href="#about" class="btn-ghost">Our Story</a>
     </div>
   </div>
@@ -1466,6 +1672,48 @@
   </div>
 </section>
 
+<!-- Videos -->
+<section class="videos-section" id="videos">
+  <div class="videos-inner">
+    <div class="videos-header">
+      <div>
+        <div class="section-label">Videos</div>
+        <h2 class="section-title">NHC<br>In Action</h2>
+      </div>
+      <p>Comps, training, kids programs and more — plays through automatically. Click any thumbnail to jump to that video.</p>
+    </div>
+
+    <!-- Main player -->
+    <div class="vc-main-player" id="vc-player">
+      <div class="vc-loading" id="vc-loading">
+        <div class="vc-spinner"></div>
+        <span>Loading videos&hellip;</span>
+      </div>
+      <iframe id="vc-iframe"
+        src=""
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        style="display:none;"
+        title="NHC Squash Video">
+      </iframe>
+    </div>
+
+    <!-- Now playing label -->
+    <div class="vc-now-playing" id="vc-now-playing" style="display:none;">
+      <div class="vc-now-playing-dot"></div>
+      <div class="vc-now-playing-title" id="vc-title"></div>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="vc-thumbs" id="vc-thumbs"></div>
+
+    <a href="https://vimeo.com/showcase/12314886"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="videos-link">View all on Vimeo</a>
+  </div>
+</section>
+
 <!-- Gallery -->
 <section class="gallery-section" id="gallery">
   <div class="gallery-inner">
@@ -1477,19 +1725,15 @@
       <p>Competition nights, winners, and moments from the courts. Updated after every event.</p>
     </div>
     <div class="flickr-wrap">
-      <iframe
-        src="https://www.flickr.com/photos/204688159@N06/albums/72177720334126256/player/?autoplay=1"
-        width="100%"
-        height="500"
-        frameborder="0"
-        allowfullscreen
-        webkitallowfullscreen
-        mozallowfullscreen
-        oallowfullscreen
-        msallowfullscreen
-        title="NHC Squash Gallery"
-        class="flickr-embed-frame">
-      </iframe>
+      <a data-flickr-embed="true"
+         href="https://www.flickr.com/photos/204688159@N06/albums/72177720334126256"
+         title="NHC Squash">
+        <img src="https://live.staticflickr.com/65535/55326163079_8fc240a37a_h.jpg"
+             width="1200"
+             height="1600"
+             alt="NHC Squash"/>
+      </a>
+      <script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
     </div>
     <a href="https://www.flickr.com/photos/204688159@N06/albums/72177720334126256"
        target="_blank"
@@ -1643,6 +1887,116 @@
       ? ''
       : 'display:flex;flex-direction:column;position:sticky;top:68px;left:0;right:0;background:rgba(10,10,10,0.98);padding:1.5rem 1.25rem;gap:1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);z-index:99;';
   });
+  /* ── Video Carousel ── */
+  (function() {
+    const API = '/.netlify/functions/vimeo-videos';
+
+    let videos    = [];
+    let current   = 0;
+    let autoTimer = null;
+
+    const iframe      = document.getElementById('vc-iframe');
+    const loading     = document.getElementById('vc-loading');
+    const nowPlaying  = document.getElementById('vc-now-playing');
+    const titleEl     = document.getElementById('vc-title');
+    const thumbsEl    = document.getElementById('vc-thumbs');
+
+    function fmtDuration(s) {
+      const m = Math.floor(s / 60), sec = s % 60;
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    function getVideoId(uri) {
+      return uri.split('/').pop();
+    }
+
+    function getThumbnail(pictures) {
+      if (!pictures || !pictures.sizes || !pictures.sizes.length) return '';
+      // Pick a mid-size thumbnail (~640px wide)
+      const sorted = pictures.sizes.slice().sort((a, b) => a.width - b.width);
+      const mid = sorted.find(s => s.width >= 640) || sorted[sorted.length - 1];
+      return mid ? mid.link : '';
+    }
+
+    function playVideo(index) {
+      clearTimeout(autoTimer);
+      current = index;
+      const v   = videos[index];
+      const vid = getVideoId(v.uri);
+
+      // Update iframe
+      iframe.style.display = 'block';
+      loading.style.display = 'none';
+      iframe.src = 'https://player.vimeo.com/video/' + vid +
+        '?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479';
+
+      // Update now-playing label
+      nowPlaying.style.display = 'flex';
+      titleEl.textContent = v.name;
+
+      // Update active thumb
+      document.querySelectorAll('.vc-thumb').forEach(function(t, i) {
+        t.classList.toggle('active', i === index);
+      });
+
+      // Auto-advance: estimate duration + 2s buffer, min 10s
+      const duration = (v.duration || 60) * 1000 + 2000;
+      autoTimer = setTimeout(function() {
+        playVideo((current + 1) % videos.length);
+      }, Math.max(duration, 10000));
+    }
+
+    function buildThumbs() {
+      thumbsEl.innerHTML = '';
+      videos.forEach(function(v, i) {
+        const thumb = getThumbnail(v.pictures);
+        const dur   = fmtDuration(v.duration || 0);
+
+        const el = document.createElement('div');
+        el.className = 'vc-thumb' + (i === 0 ? ' active' : '');
+        el.innerHTML =
+          '<div class="vc-thumb-img-wrap">' +
+            (thumb ? '<img src="' + thumb + '" alt="' + v.name.replace(/"/g,'') + '" loading="lazy">' : '') +
+            '<div class="vc-thumb-play">' +
+              '<svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '<circle cx="22" cy="22" r="21" fill="rgba(0,0,0,0.55)" stroke="rgba(200,240,0,0.7)" stroke-width="1.5"/>' +
+                '<polygon points="17,13 35,22 17,31" fill="#C8F000"/>' +
+              '</svg>' +
+            '</div>' +
+          '</div>' +
+          '<div class="vc-thumb-meta">' +
+            '<div class="vc-thumb-title">' + v.name + '</div>' +
+            '<div class="vc-thumb-duration">' + dur + '</div>' +
+          '</div>';
+
+        el.addEventListener('click', function() { playVideo(i); });
+        thumbsEl.appendChild(el);
+      });
+    }
+
+    function showError(msg) {
+      loading.innerHTML = '<span style="color:rgba(248,246,241,0.35);font-size:0.82rem;letter-spacing:0.06em;">' + msg + '</span>';
+    }
+
+    // Fetch from Vimeo API
+    fetch(API)
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      videos = (data.data || []);
+      if (!videos.length) { showError('No videos found.'); return; }
+      buildThumbs();
+      playVideo(0);
+    })
+    .catch(function(err) {
+      console.error('Vimeo API error:', err);
+      showError('Videos unavailable — visit us on Vimeo.');
+    });
+  })();
+
+
 </script>
 
 </body>
