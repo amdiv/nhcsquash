@@ -33,6 +33,109 @@
     overflow-x: hidden;
   }
 
+  /* ── PROMO BANNER ──
+     To disable: add  display:none  to #promo-banner, or remove the block entirely.
+     To re-enable for a new offer: restore the block and update the copy inside. */
+  #promo-banner {
+    background: var(--accent);
+    padding: 0.75rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 99;
+  }
+  .promo-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .promo-badge {
+    background: var(--black);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    line-height: 1.5;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .promo-divider {
+    width: 1px;
+    height: 2rem;
+    background: rgba(10,10,10,0.15);
+    flex-shrink: 0;
+  }
+  .promo-body { min-width: 0; }
+  .promo-choose {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-bottom: 0.3rem;
+  }
+  .promo-offers {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .promo-offer {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--black);
+    white-space: nowrap;
+  }
+  .promo-or {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(10,10,10,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .promo-sub {
+    font-size: 0.72rem;
+    color: rgba(10,10,10,0.55);
+    margin-top: 0.25rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .promo-cta {
+    background: var(--black);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.2rem;
+    border-radius: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .promo-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  @media (max-width: 900px) {
+    #promo-banner { padding: 0.75rem 1.25rem; gap: 0.75rem; flex-wrap: wrap; }
+    .promo-divider { display: none; }
+    .promo-badge { font-size: 0.6rem; }
+    .promo-offer { font-size: 0.8rem; }
+    .promo-cta { width: 100%; text-align: center; }
+  }
+
+
   /* ── STICKY HEADER WRAPPER ── */
   #site-header {
     position: sticky;
@@ -1259,7 +1362,7 @@
 </head>
 <body>
 
-<!-- Sticky header -->
+<!-- Sticky header: nav + promo banner travel together -->
 <div id="site-header">
 
   <!-- Nav -->
@@ -1279,6 +1382,26 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
+  <!-- Promo Banner — 10 Visit Pack Offer
+       To disable when offer ends: add style="display:none" to the div below, or delete this block.
+       To run a new offer: update the copy inside .promo-badge, .promo-offer spans, and .promo-sub. -->
+  <div id="promo-banner">
+    <div class="promo-left">
+      <div class="promo-badge">10 Visit<br>Pack<br>$350</div>
+      <div class="promo-divider"></div>
+      <div class="promo-body">
+        <div class="promo-choose">Book a 10 visit pack and choose</div>
+        <div class="promo-offers">
+          <span class="promo-offer">11th visit free <span style="font-weight:400;color:rgba(10,10,10,0.6)">(worth $35)</span></span>
+          <span class="promo-or">— or —</span>
+          <span class="promo-offer">A free lesson <span style="font-weight:400;color:rgba(10,10,10,0.6)">(worth $40)</span></span>
+        </div>
+        <div class="promo-sub">Mention this offer when you call</div>
+      </div>
+    </div>
+    <a href="tel:0419688262" class="promo-cta">Call James →</a>
+  </div>
 
 </div><!-- /site-header -->
 

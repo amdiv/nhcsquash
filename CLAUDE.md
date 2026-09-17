@@ -10,7 +10,7 @@ The marketing site for NHC Squash — a six-court squash club at 201 Windsor Roa
 
 Two source files, and that is the whole application:
 
-- **[index.html](index.html)** (~2,000 lines) — self-contained: markup, a `<style>` block (lines 10–1258), and a `<script>` block (lines 1731–1879). No framework, no module system, no separate CSS or JS file, no `package.json`.
+- **[index.html](index.html)** (~2,000 lines) — self-contained: markup, a `<style>` block (lines 10–1361), and a `<script>` block (lines 1854–2002). No framework, no module system, no separate CSS or JS file, no `package.json`.
 - **[netlify/functions/vimeo-videos.js](netlify/functions/vimeo-videos.js)** — the only backend. Proxies the Vimeo API so the access token never reaches the browser.
 
 There is **no `netlify.toml`**. The function is discovered by Netlify's default `netlify/functions` convention, so the directory path is load-bearing — moving or renaming it breaks the video section silently.
@@ -43,20 +43,20 @@ git push origin main
 
 They are separate implementations that share variable names (`current`, `autoTimer`, `goTo`). The video carousel is wrapped in an IIFE **specifically to keep its state off the global scope** where the court carousel lives. Keep it that way — hoisting anything out of that closure collides with the court slider.
 
-**Court carousel** (`#carousel`, lines 1732–1758) — six static `.carousel-slide` divs, auto-advancing every 3.5s. The dots are hand-written markup: adding or removing a court photo means editing the slide, its matching `.carousel-dot` with a sequential `data-index`, and the "6 Courts Available" badge text.
+**Court carousel** (`#carousel`, lines 1855–1881) — six static `.carousel-slide` divs, auto-advancing every 3.5s. The dots are hand-written markup: adding or removing a court photo means editing the slide, its matching `.carousel-dot` with a sequential `data-index`, and the "6 Courts Available" badge text.
 
-**Video carousel** (`#vc-*`, lines 1769–1876) — fetched from the function at load, thumbnails built by string concatenation into `innerHTML`. Notes:
+**Video carousel** (`#vc-*`, lines 1892–1999) — fetched from the function at load, thumbnails built by string concatenation into `innerHTML`. Notes:
 
 - Thumbnails pick the first `pictures.sizes` entry ≥640px wide, falling back to the largest.
 - Auto-advance is a `setTimeout` of `duration + 2s` (min 10s). It is a **timer, not a player event** — pausing or scrubbing the Vimeo player does not stop the queue.
 - Video titles come from Vimeo showcase names and are injected unescaped into `innerHTML`. Rename videos in the Vimeo showcase, not here.
-- Showcase `12314886` is hardcoded in **two places**: the function's URL and the "View all on Vimeo" link ([index.html:1592](index.html#L1592)). Change both together.
+- Showcase `12314886` is hardcoded in **two places**: the function's URL and the "View all on Vimeo" link ([index.html:1715](index.html#L1715)). Change both together.
 
 ## Editing gotchas
 
-**There is no promo banner on the page right now — recover it, do not rebuild it.** The `#promo-banner` block ran an August first-anniversary offer and was removed in commit `ce3079a`: markup, CSS, and its `max-width: 900px` overrides all went with it. Nothing depends on it — `#site-header` is a sticky wrapper that simply gets shorter without it.
+**The promo banner is time-limited — swap its copy, and recover it rather than rebuild it.** `#promo-banner` currently runs a 10 Visit Pack offer ($350, choose an 11th visit free or a free lesson), with no stated end date. Its CSS starts at [index.html:36](index.html#L36) and its markup at [index.html:1386](index.html#L1386). History: an August first-anniversary offer ran first, the block was deleted in `ce3079a`, and restored with new copy afterwards. Nothing else depends on it — `#site-header` is a sticky wrapper that simply gets shorter without it.
 
-The last commit that still contains the banner is `45b6606`. Pull the two blocks straight out of it rather than writing new ones; the styling is already tuned to the accent palette and carries its own mobile breakpoint:
+If the block is ever deleted again, pull it back out of commit `45b6606` rather than writing a new one; the styling is already tuned to the accent palette and carries its own mobile breakpoint:
 
 ```bash
 git show 45b6606:index.html | sed -n '36,137p'      # CSS    → paste above the /* ── STICKY HEADER WRAPPER ── */ comment
@@ -67,10 +67,10 @@ Placement is load-bearing: the banner belongs **inside** `#site-header`, below `
 
 Its shape, for authoring new copy — an accent-coloured flex bar holding `.promo-left` (a black `.promo-badge` pill, a `.promo-divider`, then `.promo-body` wrapping `.promo-choose` / `.promo-offers` with alternating `.promo-offer` and `.promo-or` spans / `.promo-sub`) with a `.promo-cta` phone link pushed right. **Change the copy in `.promo-badge`, the `.promo-offer` spans and `.promo-sub`; leave the styles alone.** To pull a live banner without deleting it, add `display:none` to `#promo-banner`.
 
-Two things to check when a banner goes back in:
+Two things to check whenever a banner goes back in:
 
 - `.promo-cta` uses `tel:0419688262` — a sixth copy of the phone number (see below).
-- The mobile nav dropdown is opened by inline `cssText` with a hardcoded `top:68px` measured against the nav bar alone ([index.html:1767](index.html#L1767)). It is `position:sticky` inside the header so the banner does not offset it, but click the hamburger at ≤900px and confirm.
+- The mobile nav dropdown is opened by inline `cssText` with a hardcoded `top:68px` measured against the nav bar alone ([index.html:1890](index.html#L1890)). It is `position:sticky` inside the header so the banner does not offset it, but click the hamburger at ≤900px and confirm.
 
 **The phone number is duplicated.** `0419688262` appears in five `tel:` links plus display text in the CTA band and footer — six links whenever a promo banner is live. Changing it means all of them.
 
