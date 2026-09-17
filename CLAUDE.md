@@ -10,7 +10,7 @@ The marketing site for NHC Squash — a six-court squash club at 201 Windsor Roa
 
 Two source files, and that is the whole application:
 
-- **[index.html](index.html)** (~2,000 lines) — self-contained: markup, a `<style>` block (lines 10–1361), and a `<script>` block (lines 1854–2002). No framework, no module system, no separate CSS or JS file, no `package.json`.
+- **[index.html](index.html)** (~2,000 lines) — self-contained: markup, a `<style>` block (lines 10–1361), and a `<script>` block (lines 1859–2007). No framework, no module system, no separate CSS or JS file, no `package.json`.
 - **[netlify/functions/vimeo-videos.js](netlify/functions/vimeo-videos.js)** — the only backend. Proxies the Vimeo API so the access token never reaches the browser.
 
 There is **no `netlify.toml`**. The function is discovered by Netlify's default `netlify/functions` convention, so the directory path is load-bearing — moving or renaming it breaks the video section silently.
@@ -43,14 +43,14 @@ git push origin main
 
 They are separate implementations that share variable names (`current`, `autoTimer`, `goTo`). The video carousel is wrapped in an IIFE **specifically to keep its state off the global scope** where the court carousel lives. Keep it that way — hoisting anything out of that closure collides with the court slider.
 
-**Court carousel** (`#carousel`, lines 1855–1881) — six static `.carousel-slide` divs, auto-advancing every 3.5s. The dots are hand-written markup: adding or removing a court photo means editing the slide, its matching `.carousel-dot` with a sequential `data-index`, and the "6 Courts Available" badge text.
+**Court carousel** (`#carousel`, lines 1860–1886) — six static `.carousel-slide` divs, auto-advancing every 3.5s. The dots are hand-written markup: adding or removing a court photo means editing the slide, its matching `.carousel-dot` with a sequential `data-index`, and the "6 Courts Available" badge text.
 
-**Video carousel** (`#vc-*`, lines 1892–1999) — fetched from the function at load, thumbnails built by string concatenation into `innerHTML`. Notes:
+**Video carousel** (`#vc-*`, lines 1897–2004) — fetched from the function at load, thumbnails built by string concatenation into `innerHTML`. Notes:
 
 - Thumbnails pick the first `pictures.sizes` entry ≥640px wide, falling back to the largest.
 - Auto-advance is a `setTimeout` of `duration + 2s` (min 10s). It is a **timer, not a player event** — pausing or scrubbing the Vimeo player does not stop the queue.
 - Video titles come from Vimeo showcase names and are injected unescaped into `innerHTML`. Rename videos in the Vimeo showcase, not here.
-- Showcase `12314886` is hardcoded in **two places**: the function's URL and the "View all on Vimeo" link ([index.html:1715](index.html#L1715)). Change both together.
+- Showcase `12314886` is hardcoded in **two places**: the function's URL and the "View all on Vimeo" link ([index.html:1720](index.html#L1720)). Change both together.
 
 ## Editing gotchas
 
@@ -70,7 +70,7 @@ Its shape, for authoring new copy — an accent-coloured flex bar holding `.prom
 Two things to check whenever a banner goes back in:
 
 - `.promo-cta` uses `tel:0419688262` — a sixth copy of the phone number (see below).
-- The mobile nav dropdown is opened by inline `cssText` with a hardcoded `top:68px` measured against the nav bar alone ([index.html:1890](index.html#L1890)). It is `position:sticky` inside the header so the banner does not offset it, but click the hamburger at ≤900px and confirm.
+- The mobile nav dropdown is opened by inline `cssText` with a hardcoded `top:68px` measured against the nav bar alone ([index.html:1895](index.html#L1895)). It is `position:sticky` inside the header so the banner does not offset it, but click the hamburger at ≤900px and confirm.
 
 **The phone number is duplicated.** `0419688262` appears in five `tel:` links plus display text in the CTA band and footer — six links whenever a promo banner is live. Changing it means all of them.
 
@@ -91,7 +91,7 @@ Two things to check whenever a banner goes back in:
 Club copy states these; keep them consistent if you touch the hero, stats strip, About section, or footer.
 
 - 6 courts, newly renovated, at 201 Windsor Road, Northmead NSW 2152 (entry via Windermere Ave).
-- 15 competitions per week — something every night; kids training Thursday 4pm; Ladies Novice fortnightly Sunday.
+- 15 competitions per week — something every night; kids training Thursday 4pm; Ladies Novice fortnightly Sunday; Ladies Coaching Wednesday 6–7pm, starting November (2026).
 - James Ethan: peak PSA world ranking **#251**, 30+ years managing squash clubs, 17 years at Baulkham Hills, #1 international best-selling author. He started at 17 with no natural talent — that framing is deliberate, do not upgrade it.
 - First 30 minutes free for first-time visitors. Casual hire $38/hour, $25 for 30 min, $45 for the 90-min package.
 - Contact: 041 968 8262, James@nhsf.com.au.
