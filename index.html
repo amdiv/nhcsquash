@@ -39,13 +39,19 @@
   #promo-banner {
     background: var(--accent);
     padding: 0.75rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
     position: relative;
     z-index: 99;
   }
+  /* Two messages share the bar, one at a time — see the rotator in the script block. */
+  .promo-track { transition: opacity 0.35s ease; }
+  .promo-track.fading { opacity: 0; }
+  .promo-slide {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .promo-slide.active { display: flex; }
   .promo-left {
     display: flex;
     align-items: center;
@@ -128,7 +134,8 @@
   .promo-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
   @media (max-width: 900px) {
-    #promo-banner { padding: 0.75rem 1.25rem; gap: 0.75rem; flex-wrap: wrap; }
+    #promo-banner { padding: 0.75rem 1.25rem; }
+    .promo-slide { gap: 0.75rem; flex-wrap: wrap; }
     .promo-divider { display: none; }
     .promo-badge { font-size: 0.6rem; }
     .promo-offer { font-size: 0.8rem; }
@@ -1383,24 +1390,49 @@
     </button>
   </nav>
 
-  <!-- Promo Banner — 10 Visit Pack Offer
-       To disable when offer ends: add style="display:none" to the div below, or delete this block.
-       To run a new offer: update the copy inside .promo-badge, .promo-offer spans, and .promo-sub. -->
+  <!-- Promo Banner — rotates between the 10 Visit Pack offer and Ladies Coaching
+       To disable the whole banner: add style="display:none" to #promo-banner, or delete this block.
+       To run a new message: copy a .promo-slide and update the copy inside .promo-badge,
+       the .promo-offer spans, and .promo-sub. One slide alone is fine — the rotator
+       (in the script block) does nothing when there is only one. -->
   <div id="promo-banner">
-    <div class="promo-left">
-      <div class="promo-badge">10 Visit<br>Pack<br>$350</div>
-      <div class="promo-divider"></div>
-      <div class="promo-body">
-        <div class="promo-choose">Book a 10 visit pack and choose</div>
-        <div class="promo-offers">
-          <span class="promo-offer">11th visit free <span style="font-weight:400;color:rgba(10,10,10,0.6)">(worth $35)</span></span>
-          <span class="promo-or">— or —</span>
-          <span class="promo-offer">A free lesson <span style="font-weight:400;color:rgba(10,10,10,0.6)">(worth $40)</span></span>
+    <div class="promo-track">
+
+      <div class="promo-slide active">
+        <div class="promo-left">
+          <div class="promo-badge">10 Visit<br>Pack<br>$350</div>
+          <div class="promo-divider"></div>
+          <div class="promo-body">
+            <div class="promo-choose">Book a 10 visit pack and choose</div>
+            <div class="promo-offers">
+              <span class="promo-offer">11th visit free <span style="font-weight:400;color:rgba(10,10,10,0.6)">(worth $35)</span></span>
+              <span class="promo-or">— or —</span>
+              <span class="promo-offer">A free lesson <span style="font-weight:400;color:rgba(10,10,10,0.6)">(worth $40)</span></span>
+            </div>
+            <div class="promo-sub">Mention this offer when you call</div>
+          </div>
         </div>
-        <div class="promo-sub">Mention this offer when you call</div>
+        <a href="tel:0419688262" class="promo-cta">Call James →</a>
       </div>
+
+      <div class="promo-slide">
+        <div class="promo-left">
+          <div class="promo-badge">New<br>Ladies<br>Coaching</div>
+          <div class="promo-divider"></div>
+          <div class="promo-body">
+            <div class="promo-choose">Launching Wednesdays from November</div>
+            <div class="promo-offers">
+              <span class="promo-offer">6pm <span style="font-weight:400;color:rgba(10,10,10,0.6)">·</span> 7:15pm <span style="font-weight:400;color:rgba(10,10,10,0.6)">·</span> 8:30pm</span>
+              <span class="promo-or">—</span>
+              <span class="promo-offer">$30 per session</span>
+            </div>
+            <div class="promo-sub">Call James to reserve your spot</div>
+          </div>
+        </div>
+        <a href="tel:0419688262" class="promo-cta">Call James →</a>
+      </div>
+
     </div>
-    <a href="tel:0419688262" class="promo-cta">Call James →</a>
   </div>
 
 </div><!-- /site-header -->
@@ -1635,7 +1667,12 @@
         </div>
         <div style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid rgba(255,255,255,0.06);">
           <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;line-height:1.2;margin-bottom:0.3rem;">Ladies Coaching</div>
-          <span class="time-tag grade-b">6–7pm</span>
+          <div class="day-times">
+            <span class="time-tag grade-b">6pm</span>
+            <span class="time-tag grade-b">7:15pm</span>
+            <span class="time-tag grade-b">8:30pm</span>
+            <span class="time-tag grade-a">$30 per session</span>
+          </div>
           <div style="font-size:0.65rem;color:rgba(248,246,241,0.35);margin-top:0.3rem;letter-spacing:0.05em;">STARTING NOVEMBER</div>
         </div>
       </div>
@@ -1894,6 +1931,41 @@
       ? ''
       : 'display:flex;flex-direction:column;position:sticky;top:68px;left:0;right:0;background:rgba(10,10,10,0.98);padding:1.5rem 1.25rem;gap:1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);z-index:99;';
   });
+  /* ── Promo Banner rotator ── */
+  (function() {
+    const slides = document.querySelectorAll('#promo-banner .promo-slide');
+    const track = document.querySelector('#promo-banner .promo-track');
+    if (!track || slides.length < 2) return;   // one message: nothing to rotate
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let shown = 0;
+    let timer;
+
+    function advance() {
+      const next = (shown + 1) % slides.length;
+      const swap = () => {
+        slides[shown].classList.remove('active');
+        slides[next].classList.add('active');
+        shown = next;
+        track.classList.remove('fading');
+      };
+      if (reduced) { swap(); return; }
+      track.classList.add('fading');
+      setTimeout(swap, 350);
+    }
+
+    function start() { timer = setInterval(advance, 7000); }
+    function stop() { clearInterval(timer); }
+
+    /* Hold the current message while someone is reading or tabbing through it. */
+    const banner = document.getElementById('promo-banner');
+    banner.addEventListener('mouseenter', stop);
+    banner.addEventListener('mouseleave', start);
+    banner.addEventListener('focusin', stop);
+    banner.addEventListener('focusout', start);
+    start();
+  })();
+
   /* ── Video Carousel ── */
   (function() {
     const API = '/.netlify/functions/vimeo-videos';

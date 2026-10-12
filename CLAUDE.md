@@ -10,7 +10,7 @@ The marketing site for NHC Squash — a six-court squash club at 201 Windsor Roa
 
 Two source files, and that is the whole application:
 
-- **[index.html](index.html)** (~2,000 lines) — self-contained: markup, a `<style>` block (lines 10–1361), and a `<script>` block (lines 1859–2007). No framework, no module system, no separate CSS or JS file, no `package.json`.
+- **[index.html](index.html)** (~2,000 lines) — self-contained: markup, a `<style>` block (lines 10–1368), and a `<script>` block (lines 1896–2079). No framework, no module system, no separate CSS or JS file, no `package.json`.
 - **[netlify/functions/vimeo-videos.js](netlify/functions/vimeo-videos.js)** — the only backend. Proxies the Vimeo API so the access token never reaches the browser.
 
 There is **no `netlify.toml`**. The function is discovered by Netlify's default `netlify/functions` convention, so the directory path is load-bearing — moving or renaming it breaks the video section silently.
@@ -43,18 +43,18 @@ git push origin main
 
 They are separate implementations that share variable names (`current`, `autoTimer`, `goTo`). The video carousel is wrapped in an IIFE **specifically to keep its state off the global scope** where the court carousel lives. Keep it that way — hoisting anything out of that closure collides with the court slider.
 
-**Court carousel** (`#carousel`, lines 1860–1886) — six static `.carousel-slide` divs, auto-advancing every 3.5s. The dots are hand-written markup: adding or removing a court photo means editing the slide, its matching `.carousel-dot` with a sequential `data-index`, and the "6 Courts Available" badge text.
+**Court carousel** (`#carousel`, lines 1897–1932) — six static `.carousel-slide` divs, auto-advancing every 3.5s. The dots are hand-written markup: adding or removing a court photo means editing the slide, its matching `.carousel-dot` with a sequential `data-index`, and the "6 Courts Available" badge text.
 
-**Video carousel** (`#vc-*`, lines 1897–2004) — fetched from the function at load, thumbnails built by string concatenation into `innerHTML`. Notes:
+**Video carousel** (`#vc-*`, lines 1969–2076) — fetched from the function at load, thumbnails built by string concatenation into `innerHTML`. Notes:
 
 - Thumbnails pick the first `pictures.sizes` entry ≥640px wide, falling back to the largest.
 - Auto-advance is a `setTimeout` of `duration + 2s` (min 10s). It is a **timer, not a player event** — pausing or scrubbing the Vimeo player does not stop the queue.
 - Video titles come from Vimeo showcase names and are injected unescaped into `innerHTML`. Rename videos in the Vimeo showcase, not here.
-- Showcase `12314886` is hardcoded in **two places**: the function's URL and the "View all on Vimeo" link ([index.html:1720](index.html#L1720)). Change both together.
+- Showcase `12314886` is hardcoded in **two places**: the function's URL and the "View all on Vimeo" link ([index.html:1757](index.html#L1757)). Change both together.
 
 ## Editing gotchas
 
-**The promo banner is time-limited — swap its copy, and recover it rather than rebuild it.** `#promo-banner` currently runs a 10 Visit Pack offer ($350, choose an 11th visit free or a free lesson), with no stated end date. Its CSS starts at [index.html:36](index.html#L36) and its markup at [index.html:1386](index.html#L1386). History: an August first-anniversary offer ran first, the block was deleted in `ce3079a`, and restored with new copy afterwards. Nothing else depends on it — `#site-header` is a sticky wrapper that simply gets shorter without it.
+**The promo banner is time-limited — swap its copy, and recover it rather than rebuild it.** `#promo-banner` holds one or more `.promo-slide` messages inside a `.promo-track`; a rotator ([index.html:1934](index.html#L1934), its own IIFE) fades between them every 7s, pausing on hover and focus, and swapping without the fade under `prefers-reduced-motion`. **With a single slide it does nothing**, so pulling a message back to one is safe. Two run today: the 10 Visit Pack offer ($350, 11th visit free or a free lesson) and Ladies Coaching (Wednesdays from November, $30 per session) — neither has a stated end date. CSS starts at [index.html:36](index.html#L36), markup at [index.html:1393](index.html#L1393). History: an August first-anniversary offer ran first, the block was deleted in `ce3079a`, then restored with new copy and later made a rotator. Nothing else depends on it — `#site-header` is a sticky wrapper that simply gets shorter without it.
 
 If the block is ever deleted again, pull it back out of commit `45b6606` rather than writing a new one; the styling is already tuned to the accent palette and carries its own mobile breakpoint:
 
@@ -65,14 +65,14 @@ git show 45b6606:index.html | sed -n '1385,1404p'   # markup → paste inside #s
 
 Placement is load-bearing: the banner belongs **inside** `#site-header`, below `<nav>`, so the two travel together as one sticky unit. Put it outside and it scrolls away.
 
-Its shape, for authoring new copy — an accent-coloured flex bar holding `.promo-left` (a black `.promo-badge` pill, a `.promo-divider`, then `.promo-body` wrapping `.promo-choose` / `.promo-offers` with alternating `.promo-offer` and `.promo-or` spans / `.promo-sub`) with a `.promo-cta` phone link pushed right. **Change the copy in `.promo-badge`, the `.promo-offer` spans and `.promo-sub`; leave the styles alone.** To pull a live banner without deleting it, add `display:none` to `#promo-banner`.
+Its shape, for authoring new copy — an accent-coloured flex bar holding `.promo-left` (a black `.promo-badge` pill, a `.promo-divider`, then `.promo-body` wrapping `.promo-choose` / `.promo-offers` with alternating `.promo-offer` and `.promo-or` spans / `.promo-sub`) with a `.promo-cta` phone link pushed right. **Change the copy in `.promo-badge`, the `.promo-offer` spans and `.promo-sub`; leave the styles alone.** Add a message by copying a whole `.promo-slide` (exactly one carries `active`); remove one by deleting its slide. To pull the whole banner without deleting it, add `display:none` to `#promo-banner`.
 
 Two things to check whenever a banner goes back in:
 
-- `.promo-cta` uses `tel:0419688262` — a sixth copy of the phone number (see below).
-- The mobile nav dropdown is opened by inline `cssText` with a hardcoded `top:68px` measured against the nav bar alone ([index.html:1895](index.html#L1895)). It is `position:sticky` inside the header so the banner does not offset it, but click the hamburger at ≤900px and confirm.
+- Each slide's `.promo-cta` uses `tel:0419688262` — another copy of the phone number (see below).
+- The mobile nav dropdown is opened by inline `cssText` with a hardcoded `top:68px` measured against the nav bar alone ([index.html:1932](index.html#L1932)). It is `position:sticky` inside the header so the banner does not offset it, but click the hamburger at ≤900px and confirm.
 
-**The phone number is duplicated.** `0419688262` appears in five `tel:` links plus display text in the CTA band and footer — six links whenever a promo banner is live. Changing it means all of them.
+**The phone number is duplicated.** `0419688262` appears in seven `tel:` links plus display text in the CTA band and footer — five in the page body, plus one per promo-banner slide. Changing it means all of them.
 
 **Images are unoptimised.** [images/](images/) is ~32MB — six 2.7–4MB court JPEGs and an 11.8MB `james-ethan.png`. The page is heavy by design decision, not oversight; do not swap in new images without keeping this in mind, and do not "fix" it unasked.
 
@@ -91,7 +91,7 @@ Two things to check whenever a banner goes back in:
 Club copy states these; keep them consistent if you touch the hero, stats strip, About section, or footer.
 
 - 6 courts, newly renovated, at 201 Windsor Road, Northmead NSW 2152 (entry via Windermere Ave).
-- 15 competitions per week — something every night; kids training Thursday 4pm; Ladies Novice fortnightly Sunday; Ladies Coaching Wednesday 6–7pm, starting November (2026).
+- 15 competitions per week — something every night; kids training Thursday 4pm; Ladies Novice fortnightly Sunday; Ladies Coaching Wednesday 6pm / 7:15pm / 8:30pm, $30 per session, starting November (2026).
 - James Ethan: peak PSA world ranking **#251**, 30+ years managing squash clubs, 17 years at Baulkham Hills, #1 international best-selling author. He started at 17 with no natural talent — that framing is deliberate, do not upgrade it.
 - First 30 minutes free for first-time visitors. Casual hire $38/hour, $25 for 30 min, $45 for the 90-min package.
 - Contact: 041 968 8262, James@nhsf.com.au.
