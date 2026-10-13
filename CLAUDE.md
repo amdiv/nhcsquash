@@ -21,13 +21,15 @@ Page sections are anchor-navigated in this order: `#home`, `#courts`, `#pricing`
 
 ## No build system
 
-`node`, `npx`, and the Netlify CLI are **not installed** on this machine. There is no test runner, linter, or bundler, and no build/lint/test command to run — do not invent one. Verification is manual: open the page and click through it.
+This project has no test runner, linter, or bundler, and no build/lint/test command to run — do not invent one. Verification is manual: open the page and click through it.
 
 ```bash
 python3 -m http.server 8000    # then open http://localhost:8000
 ```
 
 **The video carousel cannot be tested this way.** `/.netlify/functions/vimeo-videos` 404s without the Netlify dev server, so the player sits on "Videos unavailable — visit us on Vimeo." Everything else — including the hero iframe, which is a hardcoded Vimeo ID — renders correctly locally.
+
+`node` (v26.7.0), `npm` and `npx` are installed; the **Netlify CLI is not**, so `netlify dev` needs `npx netlify-cli dev` or a global install before the carousel can be exercised locally. Installing it is a machine-level change — ask first.
 
 ## Deploying
 
