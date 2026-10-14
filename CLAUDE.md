@@ -56,7 +56,7 @@ They are separate implementations that share variable names (`current`, `autoTim
 
 ## Editing gotchas
 
-**The promo banner is time-limited — swap its copy, and recover it rather than rebuild it.** `#promo-banner` holds one or more `.promo-slide` messages inside a `.promo-track`; a rotator ([index.html:1933](index.html#L1933), its own IIFE) fades between them every 7s, pausing on hover and focus, and swapping without the fade under `prefers-reduced-motion`. **With a single slide it does nothing**, so pulling a message back to one is safe. Two run today: the 10 Visit Pack offer ($350, 11th visit free or a free lesson) and Ladies Coaching (Wednesdays from November, $30 per session) — neither has a stated end date. CSS starts at [index.html:36](index.html#L36), markup at [index.html:1393](index.html#L1393). History: an August first-anniversary offer ran first, the block was deleted in `ce3079a`, then restored with new copy and later made a rotator. Nothing else depends on it — `#site-header` is a sticky wrapper that simply gets shorter without it.
+**The promo banner is time-limited — swap its copy, and recover it rather than rebuild it.** `#promo-banner` holds one or more `.promo-slide` messages inside a `.promo-track`; a rotator ([index.html:1933](index.html#L1933), its own IIFE) fades between them every 7s, pausing on hover and focus, and swapping without the fade under `prefers-reduced-motion`. **With a single slide it does nothing**, so pulling a message back to one is safe. Two run today: the 10 Visit Pack offer ($360, 11th visit free or a free lesson) and Ladies Coaching (Wednesdays from November, $30 per session) — neither has a stated end date. CSS starts at [index.html:36](index.html#L36), markup at [index.html:1393](index.html#L1393). History: an August first-anniversary offer ran first, the block was deleted in `ce3079a`, then restored with new copy and later made a rotator. Nothing else depends on it — `#site-header` is a sticky wrapper that simply gets shorter without it.
 
 If the block is ever deleted again, pull it back out of commit `45b6606` rather than writing a new one; the styling is already tuned to the accent palette and carries its own mobile breakpoint:
 
@@ -95,5 +95,10 @@ Club copy states these; keep them consistent if you touch the hero, stats strip,
 - 6 courts, newly renovated, at 201 Windsor Road, Northmead NSW 2152 (entry via Windermere Ave).
 - 15 competitions per week — something every night; kids training Thursday 4pm; Ladies Novice fortnightly Sunday; Ladies Coaching Wednesday 6pm / 7:15pm / 8:30pm, $30 per session, starting November (2026).
 - James Ethan: peak PSA world ranking **#251**, 30+ years managing squash clubs, 17 years at Baulkham Hills, #1 international best-selling author. He started at 17 with no natural talent — that framing is deliberate, do not upgrade it.
-- First 30 minutes free for first-time visitors. Casual hire $38/hour, $25 for 30 min, $45 for the 90-min package.
+- First 30 minutes free for first-time visitors. Junior/student $20 each; unlimited players on every pass.
+- Casual hire $40/hour, $25 for 30 min, $50 for the 90-min package (incl. equipment).
+- Passes: 5 visit $175 (3 months) or $220 for the 90-min version; 10 visit $360 (6 months) or $400 for the 90-min version.
+- Membership: Basic $200/month or $360 for 2 months; Premium $220/month or $400 for 2 months, including comp play and 1 lesson a month.
+- Hours: Mon–Thu 2pm–10pm, Fri 10:30am–1:30pm, Sat 9am–2pm, Sun 11am–4:30pm (public holidays vary).
+- Prices come from James's printed price list, last updated 14 Oct 2026. The "Save $X" lines on the pack cards are derived from the hourly rate — recalculate them whenever the hour changes.
 - Contact: 041 968 8262, James@nhsf.com.au.
