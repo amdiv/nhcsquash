@@ -98,6 +98,7 @@ Club copy states these; keep them consistent if you touch the hero, stats strip,
 - First 30 minutes free for first-time visitors. Junior/student $20 each. Free racquet and unlimited players on every pass — called out in the `.pricing-strip` above the pricing grid, not just in the intro line.
 - Casual hire $40/hour, $25 for 30 min, $50 for the 90-min package (incl. equipment).
 - Passes: 5 visit $175 (3 months) or $220 for the 90-min version; 10 visit $360 (6 months) or $400 for the 90-min version.
+- **The 10 pack includes 1 free lesson (worth $40)** — a standing inclusion, not a promo. It exists because two 5 packs ($350) would otherwise undercut the $360 10 pack; if either pass price moves, check that the 10 pack still beats 2 × 5 pack.
 - Membership: Basic $200/month or $360 for 2 months; Premium $220/month or $400 for 2 months, including comp play and 1 lesson a month.
 - Hours: Mon–Thu 2pm–10pm, Fri 10:30am–1:30pm, Sat 9am–2pm, Sun 11am–4:30pm (public holidays vary).
 - Prices come from James's printed price list, last updated 14 Oct 2026. The "Save $X" lines on the pack cards are derived from the hourly rate — recalculate them whenever the hour changes.
