@@ -95,7 +95,7 @@ Club copy states these; keep them consistent if you touch the hero, stats strip,
 - 6 courts, newly renovated, at 201 Windsor Road, Northmead NSW 2152 (entry via Windermere Ave).
 - 15 competitions per week — something every night; kids training Thursday 4pm; Ladies Novice fortnightly Sunday; Ladies Coaching Wednesday 6pm / 7:15pm / 8:30pm, $30 per session, starting November (2026).
 - James Ethan: peak PSA world ranking **#251**, 30+ years managing squash clubs, 17 years at Baulkham Hills, #1 international best-selling author. He started at 17 with no natural talent — that framing is deliberate, do not upgrade it.
-- First 30 minutes free for first-time visitors. Junior/student $20 each; unlimited players on every pass.
+- First 30 minutes free for first-time visitors. Junior/student $20 each. Free racquet and unlimited players on every pass — called out in the `.pricing-strip` above the pricing grid, not just in the intro line.
 - Casual hire $40/hour, $25 for 30 min, $50 for the 90-min package (incl. equipment).
 - Passes: 5 visit $175 (3 months) or $220 for the 90-min version; 10 visit $360 (6 months) or $400 for the 90-min version.
 - Membership: Basic $200/month or $360 for 2 months; Premium $220/month or $400 for 2 months, including comp play and 1 lesson a month.

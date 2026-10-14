@@ -662,6 +662,41 @@
     gap: 1.5rem;
   }
 
+  /* Highlighted strip sitting between the pricing header and the grid. */
+  .pricing-strip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding: 1.1rem 1.5rem;
+    background: rgba(200,240,0,0.08);
+    border: 1px solid rgba(200,240,0,0.35);
+    border-radius: 4px;
+  }
+  .pricing-strip-tag {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--black);
+    padding: 0.35rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pricing-strip-text {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1079,6 +1114,8 @@
     footer { padding: 3rem 1.25rem 2rem; }
 
     .pricing-header { flex-direction: column; align-items: flex-start; }
+    .pricing-strip { padding: 1rem 1.1rem; gap: 0.75rem; }
+    .pricing-strip-text { font-size: 0.95rem; }
     .hero-actions { gap: 1rem; }
   }
 
@@ -1576,8 +1613,12 @@
         <h2 class="section-title">Simple,<br>Honest Rates</h2>
       </div>
       <p style="color:rgba(248,246,241,0.5); max-width:320px; font-size:0.95rem; line-height:1.7;">
-        Junior & student $20 each. Unlimited players on every pass. First 30 minutes free for first-time visitors.
+        Junior & student $20 each. First 30 minutes free for first-time visitors.
       </p>
+    </div>
+    <div class="pricing-strip">
+      <span class="pricing-strip-tag">Included</span>
+      <span class="pricing-strip-text">Free racquet and unlimited players on every pass</span>
     </div>
     <div class="pricing-grid">
       <div class="price-card">
